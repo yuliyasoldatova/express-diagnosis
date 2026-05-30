@@ -1,0 +1,455 @@
+/* ============================================================
+   ПЕРЕМЕННЫЕ ЦВЕТОВ И ШРИФТОВ
+   Здесь можно менять основную палитру сайта
+   ============================================================ */
+:root {
+  --cream: #faf7f2;
+  --cream-dark: #f2ece2;
+  --rose: #d9a8a0;
+  --rose-light: #eedcd9;
+  --rose-pale: #f7eeec;
+  --gold: #c9a96e;
+  --gold-light: #e8d5b0;
+  --beige: #e8ddd0;
+  --graphite: #2c2825;
+  --graphite-mid: #5a4e46;
+  --graphite-light: #8a7a70;
+  --white: #ffffff;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Jost', sans-serif;
+
+  --radius-card: 24px;
+  --radius-btn: 100px;
+  --shadow-card: 0 8px 40px rgba(44, 40, 37, 0.10), 0 2px 8px rgba(44, 40, 37, 0.06);
+  --shadow-hover: 0 16px 60px rgba(44, 40, 37, 0.14), 0 4px 16px rgba(44, 40, 37, 0.08);
+}
+
+/* ============================================================
+   СБРОС И БАЗОВЫЕ СТИЛИ
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--cream);
+  color: var(--graphite);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   ЭКРАНЫ — УПРАВЛЕНИЕ ВИДИМОСТЬЮ
+   ============================================================ */
+.screen {
+  display: none;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+.screen.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ============================================================
+   ФОНОВЫЕ ОРБЫ (декоративные пятна цвета)
+   ============================================================ */
+.welcome-bg, .result-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.55;
+}
+.orb-1 {
+  width: 480px; height: 480px;
+  background: radial-gradient(circle, #e8d0cb 0%, transparent 70%);
+  top: -120px; right: -100px;
+}
+.orb-2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, #e2d5bc 0%, transparent 70%);
+  bottom: -80px; left: -80px;
+}
+.orb-3 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, #f0e6d8 0%, transparent 70%);
+  top: 40%; left: 30%;
+}
+
+/* ============================================================
+   ЭКРАН 1: ПРИВЕТСТВИЕ
+   ============================================================ */
+.welcome-content {
+  position: relative;
+  z-index: 2;
+  max-width: 480px;
+  width: 100%;
+  padding: 60px 28px 56px;
+  text-align: center;
+  animation: fadeUp 0.9s ease both;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.welcome-title {
+  font-family: var(--font-display);
+  font-size: clamp(42px, 10vw, 60px);
+  font-weight: 300;
+  line-height: 1.12;
+  color: var(--graphite);
+  margin-bottom: 24px;
+}
+.welcome-title em {
+  font-style: italic;
+  color: var(--rose);
+}
+
+.divider {
+  width: 48px;
+  height: 1px;
+  background: var(--gold-light);
+  margin: 0 auto 28px;
+}
+
+.welcome-text {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--graphite-mid);
+  margin-bottom: 16px;
+}
+
+.welcome-hint {
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--graphite-light);
+  font-style: italic;
+  margin-bottom: 40px;
+}
+
+/* ============================================================
+   КНОПКИ
+   ============================================================ */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, var(--graphite) 0%, #3d342e 100%);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  padding: 16px 32px;
+  border-radius: var(--radius-btn);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  box-shadow: 0 4px 20px rgba(44, 40, 37, 0.25);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(44, 40, 37, 0.30);
+  background: linear-gradient(135deg, #1a1512 0%, #2c2825 100%);
+}
+.btn-primary svg { flex-shrink: 0; transition: transform 0.2s ease; }
+.btn-primary:hover svg { transform: translateX(3px); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--graphite-mid);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  padding: 14px 28px;
+  border-radius: var(--radius-btn);
+  border: 1px solid var(--beige);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.btn-secondary:hover {
+  background: var(--rose-pale);
+  border-color: var(--rose-light);
+  color: var(--graphite);
+}
+
+/* ============================================================
+   ЭКРАН 2: ЗАГРУЗКА
+   ============================================================ */
+.loading-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+  padding: 40px 28px;
+  animation: fadeIn 0.4s ease both;
+}
+
+.loading-symbol {
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid transparent;
+}
+.ring-1 {
+  inset: 0;
+  border-color: var(--gold-light) transparent transparent transparent;
+  animation: spin 1.8s linear infinite;
+}
+.ring-2 {
+  inset: 10px;
+  border-color: transparent var(--rose-light) transparent transparent;
+  animation: spin 1.2s linear infinite reverse;
+}
+.ring-3 {
+  inset: 20px;
+  border-color: var(--gold) transparent transparent transparent;
+  animation: spin 2.4s linear infinite;
+}
+.ring-center {
+  position: absolute;
+  inset: 32px;
+  background: var(--gold);
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.loading-text {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--graphite-mid);
+  letter-spacing: 0.02em;
+}
+
+/* ============================================================
+   ЭКРАН 3: РЕЗУЛЬТАТ
+   ============================================================ */
+.result-content {
+  position: relative;
+  z-index: 2;
+  max-width: 520px;
+  width: 100%;
+  padding: 48px 20px 60px;
+  animation: fadeUp 0.7s ease both;
+}
+
+/* Карточка результата */
+.card-wrapper {
+  perspective: 1000px;
+  margin-bottom: 28px;
+}
+.card {
+  position: relative;
+  background: var(--white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+.card-glow {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--rose) 0%, var(--gold) 50%, var(--rose-light) 100%);
+}
+.card-inner {
+  padding: 36px 32px 32px;
+}
+.card-eyebrow {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.card-title {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 6vw, 34px);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--graphite);
+  margin-bottom: 12px;
+}
+.card-subtitle {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--graphite-light);
+  font-style: italic;
+  margin-bottom: 0;
+}
+.card-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--cream-dark);
+  margin: 24px 0;
+}
+.card-section {
+  margin-bottom: 22px;
+}
+.card-section:last-child { margin-bottom: 0; }
+.section-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 8px;
+}
+.section-text {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--graphite-mid);
+}
+.action-section {
+  background: linear-gradient(135deg, var(--rose-pale) 0%, #fdf5f0 100%);
+  border-radius: 14px;
+  padding: 20px;
+  margin-top: 4px;
+}
+.action-section .section-label { color: var(--gold); }
+.action-text {
+  color: var(--graphite);
+  font-weight: 400;
+}
+
+/* Продающий блок */
+.promo-block {
+  background: linear-gradient(135deg, var(--cream-dark) 0%, #f5ede4 100%);
+  border-radius: 20px;
+  padding: 28px;
+  margin-bottom: 28px;
+  border: 1px solid var(--beige);
+  text-align: center;
+}
+.promo-sparkle {
+  font-size: 18px;
+  color: var(--gold);
+  margin-bottom: 12px;
+  display: block;
+}
+.promo-lead {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--graphite);
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+.promo-body {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--graphite-mid);
+  margin-bottom: 12px;
+}
+.promo-list {
+  list-style: none;
+  text-align: left;
+  margin-bottom: 16px;
+  display: inline-block;
+}
+.promo-list li {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--graphite-mid);
+  line-height: 1.65;
+  padding-left: 18px;
+  position: relative;
+  margin-bottom: 4px;
+}
+.promo-list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+}
+.promo-format {
+  font-size: 12px;
+  color: var(--graphite-light);
+  font-style: italic;
+}
+
+/* Кнопки результата */
+.result-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+/* ============================================================
+   АНИМАЦИИ
+   ============================================================ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%       { opacity: 0.8; transform: scale(1.15); }
+}
+
+/* ============================================================
+   АДАПТИВ: ПЛАНШЕТ И ДЕСКТОП
+   ============================================================ */
+@media (min-width: 600px) {
+  .welcome-content { padding: 80px 48px; }
+  .result-content  { padding: 60px 28px 80px; }
+  .card-inner      { padding: 44px 40px 40px; }
+  .promo-block     { padding: 36px; }
+  .result-buttons  { flex-direction: row; justify-content: center; }
+}
+@media (min-width: 900px) {
+  .welcome-content { padding: 100px 60px; }
+  .orb-1 { width: 600px; height: 600px; }
+  .orb-2 { width: 500px; height: 500px; }
+}
